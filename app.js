@@ -6,6 +6,8 @@ const app = express();
 const routesLogin = require('./routes/loginRoutes');
 const routesRegister = require('./routes/registerRoutes');
 const mongoose = require('mongoose');
+const jwt = require('jsonwebtoken');
+
 
 app.set("view engine", "ejs");
 ///////
@@ -21,11 +23,25 @@ app.use(routesLogin);
 app.use(routesRegister);
 
 app.get('/home', (req, res) => {
-    if (req.cookies.isLoged) {
-        res.render('homeLoged')
+
+    if (req.cookies.jwt === undefined || req.cookies.jwt === '') {
+
+        res.render('homeNot');
+
     } else {
-        res.render('homeNot')
+
+        try {
+            let verifycation = jwt.verify(req.cookies.jwt, CONSTS.SECRET)
+            console.log(verifycation);
+            res.render('homeLoged')
+        } catch (err) {
+            console.log('error ocured at /home path in catch block');
+         //   console.log(err);
+            res.render('homeNot')
+        }
     }
+
+
 })
 
 app.get('*', (req, res) => {

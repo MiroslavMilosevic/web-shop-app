@@ -17,7 +17,8 @@ register_button.addEventListener('click', () => {
         axios.post('/register', { mail, username, password }).then(res => {
 
             if (res.data.isOk) {
-                window.location.href = "/home";
+              window.location.href = "/home";
+             // console.log(res);
             } else {
                 console.log("username ili mail su vec zauzeti");
             }
