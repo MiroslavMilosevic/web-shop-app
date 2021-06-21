@@ -8,7 +8,6 @@ router.get('/register', async (req, res) => {
     res.render('register')
 })
 
-
 router.post('/register', registerUser)
 
 

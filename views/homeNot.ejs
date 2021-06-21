@@ -1,12 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <title>Home</title>
 </head>
+
 <body>
+    <nav>
+        <div id="logIn" class="log-in-home-not">Log In</div>
+    </nav>
     <h2>home for users that are not loged in</h2>
-</body>
+
+
+    <button id="proba-dugme">dugme 22</button>
+
+<% telefoni.forEach(telefon =>{ %> 
+
+    <p><%=   telefon.model%></p>
+
+<% }) %>
+
+<% if(page !== undefined) {%> 
+<button id="previous" data-page=<%= page %>  >Previous page</button>
+<button id="next" data-page=<%= page %> >Next page</button>
+<% } %> 
+<!-- 
+<button id="pervious"  >Previous page</button>
+<button id="next"  %>>Next page</button> -->
+
+
+
+
+
+
+
+
+
+<script>
+
+let next = document.getElementById('next')
+let previous = document.getElementById('previous')
+if(next !== undefined && next !== null && previous !== undefined && previous !== null){
+next.addEventListener('click', () => {
+    console.log(next.dataset.page);
+    let page = Number(next.dataset.page)+1;
+    window.location.href = `/home/page/${page}`;
+});
+previous.addEventListener('click', () => {
+    console.log(previous.dataset.page);
+    let page = Number(previous.dataset.page)-1;
+    window.location.href = `/home/page/${page}`;
+});
+}
+
+
+
+
+document.getElementById('proba-dugme').addEventListener('click', () => {
+      axios.post('/add-phone-test',{bodi1:'nesto', bodi2:'nesto drugo'}).then(res=>{
+      console.log(res);    
+      })
+    })
+</script>
+<script src="/logInScript.js"></script>
+
 </html>
