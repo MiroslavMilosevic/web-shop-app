@@ -32,24 +32,24 @@ app.get('/logout', (req, res) => {
     res.json({ isOk: true })
 })
 
-app.post('/add-phone-test', async (req, res) => {
+app.get('/add-phone-test', async (req, res) => {
 console.log('pogodjen add phoneeeeee');
     let phone = new Phone({
-        model: "Proba",
-        marka: "Proba",
+        model: "Huawei Proba 1",
+        marka: "Huawei",
         procesor: "Proba",
         baterija: "Proba",
         kamera: "Proba",
         memorija: "Proba",
-        softver: "Proba",
-        cena: 10000  ,
-        naslov: "Proba",
+        softver: "Android",
+        cena: 777  ,
+        naslov: "Huawei Proba 1 veoma povoljna proba",
         slika: "https://s0.2mdn.net/10974076/300x600_-_animirani.png",
         komentari:['good price for quality', 'very good device']
     })
 
     try{
-     //  let result = await phone.save();
+       let result = await phone.save();
        res.json({ proba: 'add-test-proba = sucess' })
     }catch(err){
         console.log(err);

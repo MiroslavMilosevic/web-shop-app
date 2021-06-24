@@ -10,13 +10,32 @@
 </head>
 
 <body>
+
+<div id="search-div">
+
+    <input type="text" name="text-search" id="text-search" placeholder="SEARCH">
+    <button id="search-button">Search</button>
+
+     <select name="marka" id="marka">
+        <option value="null">Producer</option>
+        <option value="Huawei">Huawei</option>
+        <option value="Samsung">Samsung</option>
+        <option value="Apple">Apple</option>
+        <option value="Nokia">Nokia</option>
+        <option value="Xiaomi">Xiaomi</option>
+     </select>
+     <input type="number" name="" id="" placeholder="price-from">  <input type="number" name="" id="" placeholder="price-to">
+</div>
+
+
+    <h1><%= telefoni.length %> </h1>
     <nav>
         <div id="logIn" class="log-in-home-not">Log In</div>
     </nav>
     <h2>home for users that are not loged in</h2>
 
 
-    <button id="proba-dugme">dugme 22</button>
+    <!-- <button id="proba-dugme">dugme 22</button> -->
 
 <% telefoni.forEach(telefon =>{ %> 
 
@@ -24,47 +43,71 @@
 
 <% }) %>
 
-<% if(page !== undefined) {%> 
-<button id="previous" data-page=<%= page %>  >Previous page</button>
-<button id="next" data-page=<%= page %> >Next page</button>
-<% } %> 
-<!-- 
-<button id="pervious"  >Previous page</button>
-<button id="next"  %>>Next page</button> -->
+<% if(plainHome){  %> 
+         <button id="all-phones-button">See all devices</button>
+    <% }  %> 
 
 
 
 
+<% if(page !== undefined && page > 0  && 5 <= telefoni.length) {%> 
+<button id="previous" data-page=<%= page %> data-what=<%= what %> data-value=<%= value %>  >Previous page</button>
+<button id="next" data-page=<%= page %> data-what=<%= what %> data-value=<%= value %>  >Next page</button>
 
+<% }else if(page !== undefined && page <= 0  && 5 <= telefoni.length){ %> 
+<button id="previous" data-page=<%= page %> data-what=<%= what %> data-value=<%= value %> disabled >Previous page</button>
+<button id="next" data-page=<%= page %> data-what=<%= what %> data-value=<%= value %> >Next page</button>  
 
+<% } else if(page !== undefined && page > 0  && 5 > telefoni.length)  { %> 
+    <button id="previous" data-page=<%= page %> data-what=<%= what %> data-value=<%= value %>>Previous page</button>
+    <button id="next" data-page=<%= page %> data-what=<%= what %> data-value=<%= value %> disabled  >Next page</button>  
+
+    <% }else if(! plainHome){ %>
+        <button id="previous" data-page=<%= page %> data-what=<%= what %> data-value=<%= value %> disabled >Previous page</button>
+        <button id="next" data-page=<%= page %> data-what=<%= what %> data-value=<%= value %>  disabled  >Next page</button>  
+        <% } %> 
 
 
 
 <script>
+let selectMarka = document.getElementById('marka');
+selectMarka.addEventListener('change', function(e){
+window.location.href = `/home/mark/0/${e.target.value}`
+})
+searchButton = document.getElementById('search-button');
+searchButton.addEventListener('click', function(){
+    let searchValue = document.getElementById('text-search').value.trim();
+    window.location.href = `/home/search/0/${searchValue}`
+});
 
+seeAllPhonseButton = document.getElementById('all-phones-button');
+if(seeAllPhonseButton !== undefined && seeAllPhonseButton !== null){
+    seeAllPhonseButton.addEventListener('click', ()=>{
+        window.location.href = `/home/all/0/null`;
+    })
+}
+////////////////////////////////
 let next = document.getElementById('next')
 let previous = document.getElementById('previous')
 if(next !== undefined && next !== null && previous !== undefined && previous !== null){
 next.addEventListener('click', () => {
-    console.log(next.dataset.page);
     let page = Number(next.dataset.page)+1;
-    window.location.href = `/home/page/${page}`;
+   let value = next.dataset.value;
+    window.location.href = `/home/${previous.dataset.what}/${page}/${value}`;
 });
 previous.addEventListener('click', () => {
-    console.log(previous.dataset.page);
+    let value = previous.dataset.value;
+
     let page = Number(previous.dataset.page)-1;
-    window.location.href = `/home/page/${page}`;
+    window.location.href = `/home/${previous.dataset.what}/${page}/${value}`;
 });
 }
-
-
-
-
-document.getElementById('proba-dugme').addEventListener('click', () => {
-      axios.post('/add-phone-test',{bodi1:'nesto', bodi2:'nesto drugo'}).then(res=>{
-      console.log(res);    
-      })
-    })
+//////////////////////////////////
+// document.getElementById('proba-dugme').addEventListener('click', () => {
+//       axios.post('/add-phone-test',{bodi1:'nesto', bodi2:'nesto drugo'}).then(res=>{
+//       console.log(res);    
+//       })
+//     })
 </script>
 <script src="/logInScript.js"></script>
 
