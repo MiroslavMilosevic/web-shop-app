@@ -24,7 +24,8 @@
         <option value="Nokia">Nokia</option>
         <option value="Xiaomi">Xiaomi</option>
      </select>
-     <input type="number" name="" id="" placeholder="price-from">  <input type="number" name="" id="" placeholder="price-to">
+     <input type="number" name="" id="" placeholder="price-from">  <input type="number" name="" id="" placeholder="price-to"> 
+     <button id="price-button">Search by price</button>
 </div>
 
 
@@ -70,6 +71,11 @@
 
 
 <script>
+let priceButton = document.getElementById('price-button');
+priceButton.addEventListener('click', function(){
+
+});
+
 let selectMarka = document.getElementById('marka');
 selectMarka.addEventListener('change', function(e){
 window.location.href = `/home/mark/0/${e.target.value}`

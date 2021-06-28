@@ -55,9 +55,7 @@ router.get('/home/:what/:page/:value', async (req, res) => {
     } else if (params.what === 'mark') {
 
         let rs = await Phone.find({ marka: params.value })
-        //  console.log(rs);
         rs = rs.splice(params.page * 5, 5)
-        // let rs = await Phone.find()
         res.render('homeNot', { telefoni: rs, page: params.page, plainHome: false, what: params.what, value: params.value })
 
     } else if (params.what === 'price') {
